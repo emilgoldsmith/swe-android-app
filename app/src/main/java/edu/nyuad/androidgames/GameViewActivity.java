@@ -2,6 +2,7 @@ package edu.nyuad.androidgames;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Constructor;
+
 import edu.nyuad.boardgames.Chip;
 import edu.nyuad.boardgames.Game;
 import edu.nyuad.boardgames.GameStateException;
@@ -24,14 +27,23 @@ import edu.nyuad.boardgames.TicTacToe;
 public class GameViewActivity extends AppCompatActivity {
     private Game model;
     private BoardAdapter boardAdapter;
+    private Constructor<Game> modelConstructor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_view);
 
-        // Initialize our model
-        model = new TicTacToe();
+        try {
+            Intent intent = getIntent();
+            String classPath = intent.getStringExtra(MainActivity.GAME_TYPE_MESSAGE);
+            Class<Game> abstractClass = (Class<Game>) Class.forName(classPath);
+            modelConstructor = abstractClass.getConstructor();
+        } catch(Exception e) {
+            Log.e("GameViewActivity", "Error in dynamically getting constructor");
+        }
+
+        model = createModel();
 
         final GridView boardGrid = (GridView)findViewById(R.id.boardGrid);
         boardGrid.setNumColumns(model.getColumns());
@@ -84,7 +96,7 @@ public class GameViewActivity extends AppCompatActivity {
         builder.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                model = new TicTacToe();
+                model = createModel();
                 boardAdapter.updateModel(model);
                 modelChanged();
             }
@@ -97,5 +109,14 @@ public class GameViewActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    private Game createModel() {
+        try {
+            return modelConstructor.newInstance();
+        } catch (Exception e) {
+            Log.e("GameViewActivity", "Error while calling constructor of model");
+        }
+        return null;
     }
 }

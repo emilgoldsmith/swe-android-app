@@ -43,8 +43,8 @@ public class BoardAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final int row = position / this.model.getRows();
-        final int column = position % this.model.getRows();
+        final int row = position / this.model.getColumns();
+        final int column = position % this.model.getColumns();
 
         // We don't catch errors here as it is truly an exception if a chip was being
         // asked to be rendered outside the board
