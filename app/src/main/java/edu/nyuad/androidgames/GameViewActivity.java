@@ -3,26 +3,17 @@ package edu.nyuad.androidgames;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.lang.reflect.Constructor;
 
 import edu.nyuad.boardgames.Chip;
 import edu.nyuad.boardgames.Game;
 import edu.nyuad.boardgames.GameStateException;
-import edu.nyuad.boardgames.TicTacToe;
 
 public class GameViewActivity extends AppCompatActivity {
     private Game model;

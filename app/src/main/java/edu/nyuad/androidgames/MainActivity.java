@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
-    Button ticTacToeButton;
     public static final String GAME_TYPE_MESSAGE = "GAME_TYPE_MESSAGE";
     private static final Map<String, String> games;
     static {
