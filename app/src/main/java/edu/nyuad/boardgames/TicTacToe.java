@@ -7,11 +7,6 @@ public class TicTacToe extends GameTemplate {
     this.initializeBoard(3, 3);
   }
 
-  @Override
-  protected boolean placeChipIsAllowed(int row, int column) {
-    return this.isWithinBoard(row, column);
-  }
-
   protected Chip[] hasNewWinner() {
     for (int row = 0; row < this.getRows(); row++) {
       for (int column = 0; column < this.getColumns(); column++) {
