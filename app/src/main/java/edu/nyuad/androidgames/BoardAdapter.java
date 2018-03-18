@@ -18,10 +18,10 @@ import edu.nyuad.boardgames.GameIndexOutOfBoundsException;
 import edu.nyuad.boardgames.GameStateException;
 
 public class BoardAdapter extends BaseAdapter {
-    private final Context context;
-    private final Game model;
+    private final GameViewActivity context;
+    private Game model;
 
-    public BoardAdapter(Context context, Game model) {
+    public BoardAdapter(GameViewActivity context, Game model) {
         this.context = context;
         this.model = model;
     }
@@ -46,6 +46,8 @@ public class BoardAdapter extends BaseAdapter {
         final int row = position / this.model.getRows();
         final int column = position % this.model.getRows();
 
+        // We don't catch errors here as it is truly an exception if a chip was being
+        // asked to be rendered outside the board
         Chip currentOwner = this.model.getChip(row, column);
         int colorReference;
         if (currentOwner.isEmpty()) {
@@ -69,7 +71,7 @@ public class BoardAdapter extends BaseAdapter {
             public void onClick(View view) {
                 try {
                     model.placeChip(row, column);
-                    notifyDataSetChanged();
+                    context.modelChanged();
                 } catch (GameStateException e) {
                     Toast.makeText(context, "The game is already over", Toast.LENGTH_SHORT).show();
                 } catch (GameIndexOutOfBoundsException e) {
@@ -78,5 +80,9 @@ public class BoardAdapter extends BaseAdapter {
             }
         });
         return myButton;
+    }
+
+    public void updateModel(Game newModel) {
+        model = newModel;
     }
 }
