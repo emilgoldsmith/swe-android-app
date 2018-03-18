@@ -1,6 +1,5 @@
-package impl.game;
+package edu.nyuad.boardgames;
 
-import api.Chip;
 
 import java.lang.Override;
 

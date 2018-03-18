@@ -1,12 +1,7 @@
-package impl.game;
+package edu.nyuad.boardgames;
 
 import java.util.List;
 import java.util.ArrayList;
-
-import api.Game;
-import api.Chip;
-import exc.GameIndexOutOfBoundsException;
-import exc.GameStateException;
 
 public abstract class GameTemplate extends Game {
   // We only store numRows as the global source of truth for the numColumns should
