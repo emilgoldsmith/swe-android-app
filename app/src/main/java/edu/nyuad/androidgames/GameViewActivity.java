@@ -93,6 +93,7 @@ public class GameViewActivity extends AppCompatActivity {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(notificationString + ", would you like to play again?").setTitle("Game Over");
+        builder.setCancelable(false);
         builder.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
